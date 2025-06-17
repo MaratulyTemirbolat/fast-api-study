@@ -1,3 +1,4 @@
+# Python
 from sqlalchemy.ext.asyncio import (
     AsyncSession,
     AsyncEngine,
@@ -5,16 +6,11 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
-DB_HOST = "localhost"
-DB_PORT = 5432
-DB_USER = "postgres"
-DB_PASS = "password"
-DB_NAME = "postgres"
+# Project modules
+from app.config import settings
 
 
-DATABASE_URL = f"postgresql+asyncpg://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-
-engine: AsyncEngine = create_async_engine(url=DATABASE_URL)
+engine: AsyncEngine = create_async_engine(url=settings.database_dsn_psycopg2)
 
 async_session_maker = sessionmaker(
     bind=engine,
