@@ -23,6 +23,9 @@ class Hotel(Base):
     room_quantity: Mapped[int] = mapped_column(nullable=False)
     image_id: Mapped[int]
 
+    def __repr__(self) -> str:
+        return f"<Hotel #{self.name}>"
+
 
 class Room(Base):
     __tablename__ = "rooms"
@@ -52,3 +55,6 @@ class Room(Base):
         nullable=False
     )
     image_id: Mapped[int]
+
+    def __repr__(self) -> str:
+        return f"<Room #{self.name}>"

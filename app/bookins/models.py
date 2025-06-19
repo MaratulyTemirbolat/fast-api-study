@@ -38,3 +38,6 @@ class Booking(Base):
     total_days: Mapped[int] = mapped_column(
         Computed(sqltext="date_to - date_from")
     )
+
+    def __repr__(self) -> str:
+        return f"<Booking #{self.id}>"

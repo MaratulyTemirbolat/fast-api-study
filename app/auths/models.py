@@ -17,3 +17,6 @@ class User(Base):
         nullable=False,
     )
     hashed_password: Mapped[str] = mapped_column(nullable=False)
+
+    def __repr__(self) -> str:
+        return f"<User #{self.email}>"
