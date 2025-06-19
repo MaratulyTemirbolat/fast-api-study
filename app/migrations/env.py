@@ -10,8 +10,8 @@ from alembic import context
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
 from app.database import Base
-from app.hotels.models import Hotels, Room
 from app.auths.models import User
+from app.hotels.models import Hotel, Room
 from app.bookins.models import Booking
 from app.config import settings
 

@@ -1,54 +1,54 @@
 # Python modules
+from typing import Optional
 from sqlalchemy import (
-    Column,
-    Integer,
     String,
     JSON,
     ForeignKey,
+    VARCHAR,
+    Text,
 )
+from sqlalchemy.orm import mapped_column, Mapped
 
 # Project modules
 from app.database import Base
 
 
-class Hotels(Base):
+class Hotel(Base):
     __tablename__ = "hotels"
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String, nullable=False)
-    location = Column(String, nullable=False)
-    services = Column(JSON, nullable=True)
-    room_quantity = Column(Integer, nullable=False)
-    image_id = Column(Integer)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(length=50), nullable=False)
+    location: Mapped[str] = mapped_column(nullable=False)
+    services: Mapped[list[str]] = mapped_column(JSON, nullable=True)
+    room_quantity: Mapped[int] = mapped_column(nullable=False)
+    image_id: Mapped[int]
 
 
 class Room(Base):
     __tablename__ = "rooms"
 
-    id = Column(
-        Integer,
-        primary_key=True,
-        nullable=False
-    )
-    hotel_id = Column(
-        ForeignKey(column="hotels.id"),
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    hotel_id: Mapped[int] = mapped_column(
+        ForeignKey(
+            "hotels.id",
+            ondelete="CASCADE",
+            onupdate="CASCADE"
+        ),
         nullable=False,
     )
-    name = Column(
-        String,
+    name: Mapped[str] = mapped_column(
+        VARCHAR(length=50),
         nullable=False,
     )
-    description = Column(
-        String,
+    description: Mapped[Optional[str]] = mapped_column(
+        Text,
         nullable=True,
     )
-    price = Column(
-        Integer,
+    price: Mapped[int] = mapped_column(
         nullable=False
     )
-    services = Column(JSON, nullable=True)
-    quantity = Column(
-        Integer,
+    services: Mapped[list[str]] = mapped_column(JSON, nullable=True)
+    quantity: Mapped[int] = mapped_column(
         nullable=False
     )
-    image_id = Column(Integer)
+    image_id: Mapped[int]

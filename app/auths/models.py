@@ -1,18 +1,19 @@
 # Python modules
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    JSON,
-)
+from sqlalchemy import String
+from sqlalchemy.orm import mapped_column, Mapped
 
 # Project modules
 from app.database import Base
 
 
 class User(Base):
+    EMAIL_MAX_LEN = 50
+
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True, nullable=False)
-    email = Column(String, nullable=False)
-    hashed_password = Column(String, nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    email: Mapped[str] = mapped_column(
+        String(length=EMAIL_MAX_LEN),
+        nullable=False,
+    )
+    hashed_password: Mapped[str] = mapped_column(nullable=False)
