@@ -9,6 +9,7 @@ from fastapi import APIRouter
 from app.database import async_session_maker
 from app.bookins.models import Booking
 from app.bookins.dao import BookingDAO
+from app.bookins.schemas import SBookingBase
 
 
 router: APIRouter = APIRouter(
@@ -18,8 +19,8 @@ router: APIRouter = APIRouter(
 
 
 @router.get("")
-async def get_bookings():
-    async with async_session_maker() as async_session:
+async def get_bookings() -> list[SBookingBase]:
+    # async with async_session_maker() as async_session:
         # query: Select[tuple[Booking]] = select(Booking)  # SELECT * FROM bookings;
         # query_result: Result[tuple[Booking]] = await async_session.execute(query)
         # # 1 - All
@@ -30,7 +31,7 @@ async def get_bookings():
         # # то есть взять не всю модель целиком, а только колонки и тогда вернется потом список кортежей всех полей
         # bookings: list[Booking] = query_result.scalars().all()  # Return [Booking #1, Booking #2, ...]
         # return bookings
-        bookings: list[Booking] = await BookingDAO.get_all_by_scalar()
-        return bookings
+    bookings: list[Booking] = await BookingDAO.get_all_by_scalar()
+    return bookings
         
 
